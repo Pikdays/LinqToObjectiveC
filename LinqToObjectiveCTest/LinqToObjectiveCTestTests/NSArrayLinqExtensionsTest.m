@@ -12,503 +12,468 @@
 
 @implementation NSArrayLinqExtensionsTest
 
-- (NSArray*) createTestData
-{
+- (NSArray *)createTestData {
     return @[[Person personWithName:@"bob" age:@25],
-    [Person personWithName:@"frank" age:@45],
-    [Person personWithName:@"ian" age:@35],
-    [Person personWithName:@"jim" age:@25],
-    [Person personWithName:@"joe" age:@55]];
+            [Person personWithName:@"frank" age:@45],
+            [Person personWithName:@"ian" age:@35],
+            [Person personWithName:@"jim" age:@25],
+            [Person personWithName:@"joe" age:@55]];
 }
 
-- (void)testWhere
-{
-    NSArray* input = [self createTestData];
-    
-    NSArray* peopleWhoAre25 = [input linq_where:^BOOL(id person) {
+- (void)testWhere {
+    NSArray *input = [self createTestData];
+
+    NSArray *peopleWhoAre25 = [input linq_where:^BOOL(id person) {
         return [[person age] isEqualToNumber:@25];
     }];
-    
-    STAssertEquals(peopleWhoAre25.count, (NSUInteger)2, @"There should have been 2 items returned");
-    STAssertEquals([peopleWhoAre25[0] name], @"bob", @"Bob is 25!");
-    STAssertEquals([peopleWhoAre25[1] name], @"jim", @"Jim is 25!");
+
+    XCTAssertEqual(peopleWhoAre25.count, (NSUInteger) 2, @"There should have been 2 items returned");
+    XCTAssertEqual([peopleWhoAre25[0] name], @"bob", @"Bob is 25!");
+    XCTAssertEqual([peopleWhoAre25[1] name], @"jim", @"Jim is 25!");
 }
 
-- (void)testSelect
-{
-    NSArray* input = [self createTestData];
-    
-    NSArray* names = [input linq_select:^id(id person) {
+- (void)testSelect {
+    NSArray *input = [self createTestData];
+
+    NSArray *names = [input linq_select:^id(id person) {
         return [person name];
     }];
-    
-    STAssertEquals(names.count, (NSUInteger)5, nil);
+
+    XCTAssertEqual(names.count, (NSUInteger) 5);
     // 'spot' check a few values
-    STAssertEquals(names[0], @"bob", nil);
-    STAssertEquals(names[4], @"joe", nil);
+    XCTAssertEqual(names[0], @"bob");
+    XCTAssertEqual(names[4], @"joe");
 }
 
-- (void)testSelectWithNil
-{
-    NSArray* input = [self createTestData];
-    
-    NSArray* names = [input linq_select:^id(id person) {
+- (void)testSelectWithNil {
+    NSArray *input = [self createTestData];
+
+    NSArray *names = [input linq_select:^id(id person) {
         return [[person name] isEqualToString:@"bob"] ? nil : [person name];
     }];
-    
-    STAssertEquals(names.count, (NSUInteger)5, nil);
+
+    XCTAssertEqual(names.count, (NSUInteger) 5);
     // 'spot' check a few values
-    STAssertEquals(names[0], [NSNull null], nil);
-    STAssertEquals(names[4], @"joe", nil);
+    XCTAssertEqual(names[0], [NSNull null]);
+    XCTAssertEqual(names[4], @"joe");
 }
 
-- (void)testSelectAndStopOnNil
-{
-  NSArray* input = [self createTestData];
-  
-  NSArray* names = [input linq_selectAndStopOnNil:^id(id person) {
-    return [person name];
-  }];
-  
-  STAssertEquals(names.count, (NSUInteger)5, nil);
-  // 'spot' check a few values
-  STAssertEquals(names[0], @"bob", nil);
-  STAssertEquals(names[4], @"joe", nil);
+- (void)testSelectAndStopOnNil {
+    NSArray *input = [self createTestData];
+
+    NSArray *names = [input linq_selectAndStopOnNil:^id(id person) {
+        return [person name];
+    }];
+
+    XCTAssertEqual(names.count, (NSUInteger) 5);
+    // 'spot' check a few values
+    XCTAssertEqual(names[0], @"bob");
+    XCTAssertEqual(names[4], @"joe");
 }
 
-- (void)testSelectAndStopOnNilWithNil
-{
-  NSArray* input = [self createTestData];
-  
-  NSArray* names = [input linq_selectAndStopOnNil:^id(id person) {
-    return [[person name] isEqualToString:@"bob"] ? nil : [person name];
-  }];
-  
-  STAssertNil(names, nil);
+- (void)testSelectAndStopOnNilWithNil {
+    NSArray *input = [self createTestData];
+
+    NSArray *names = [input linq_selectAndStopOnNil:^id(id person) {
+        return [[person name] isEqualToString:@"bob"] ? nil : [person name];
+    }];
+
+    XCTAssertNil(names);
 }
 
-- (void)testSort
-{
-    NSArray* input = @[@21, @34, @25];
-    
-    NSArray* sortedInput = [input linq_sort];
-    
-    STAssertEquals(sortedInput.count, (NSUInteger)3, nil);
-    STAssertEqualObjects(sortedInput[0], @21, nil);
-    STAssertEqualObjects(sortedInput[1], @25, nil);
-    STAssertEqualObjects(sortedInput[2], @34, nil);
+- (void)testSort {
+    NSArray *input = @[@21, @34, @25];
+
+    NSArray *sortedInput = [input linq_sort];
+
+    XCTAssertEqual(sortedInput.count, (NSUInteger) 3);
+    XCTAssertEqualObjects(sortedInput[0], @21);
+    XCTAssertEqualObjects(sortedInput[1], @25);
+    XCTAssertEqualObjects(sortedInput[2], @34);
 }
 
-- (void)testSortWithKeySelector
-{
-    NSArray* input = [self createTestData];
-    
-    NSArray* sortedByName = [input linq_sort:LINQKey(name)];
-    
-    STAssertEquals(sortedByName.count, (NSUInteger)5, nil);
-    STAssertEquals([sortedByName[0] name], @"bob", nil);
-    STAssertEquals([sortedByName[1] name], @"frank", nil);
-    STAssertEquals([sortedByName[2] name], @"ian", nil);
-    STAssertEquals([sortedByName[3] name], @"jim", nil);
-    STAssertEquals([sortedByName[4] name], @"joe", nil);
+- (void)testSortWithKeySelector {
+    NSArray *input = [self createTestData];
+
+    NSArray *sortedByName = [input linq_sort:LINQKey(name)];
+
+    XCTAssertEqual(sortedByName.count, (NSUInteger) 5);
+    XCTAssertEqual([sortedByName[0] name], @"bob");
+    XCTAssertEqual([sortedByName[1] name], @"frank");
+    XCTAssertEqual([sortedByName[2] name], @"ian");
+    XCTAssertEqual([sortedByName[3] name], @"jim");
+    XCTAssertEqual([sortedByName[4] name], @"joe");
 }
 
-- (void)testSortWithKeySelectorWithNil
-{
-    NSArray* input = [self createTestData];
-    
-    NSArray* sortedByName = [input linq_sort:^id(id person) {
+- (void)testSortWithKeySelectorWithNil {
+    NSArray *input = [self createTestData];
+
+    NSArray *sortedByName = [input linq_sort:^id(id person) {
         return [[person name] isEqualToString:@"bob"] ? nil : [person name];
 
     }];
-    
-    STAssertEquals(sortedByName.count, (NSUInteger)5, nil);
-    STAssertEquals([sortedByName[0] name], @"bob", nil);
-    STAssertEquals([sortedByName[1] name], @"frank", nil);
-    STAssertEquals([sortedByName[2] name], @"ian", nil);
-    STAssertEquals([sortedByName[3] name], @"jim", nil);
-    STAssertEquals([sortedByName[4] name], @"joe", nil);
+
+    XCTAssertEqual(sortedByName.count, (NSUInteger) 5);
+    XCTAssertEqual([sortedByName[0] name], @"bob");
+    XCTAssertEqual([sortedByName[1] name], @"frank");
+    XCTAssertEqual([sortedByName[2] name], @"ian");
+    XCTAssertEqual([sortedByName[3] name], @"jim");
+    XCTAssertEqual([sortedByName[4] name], @"joe");
 }
 
-- (void)testSortDescending
-{
-    NSArray* input = @[@21, @34, @25];
-    
-    NSArray* sortedDescendingInput = [input linq_sortDescending];
-    
-    STAssertEquals(sortedDescendingInput.count, (NSUInteger)3, nil);
-    STAssertEqualObjects(sortedDescendingInput[0], @34, nil);
-    STAssertEqualObjects(sortedDescendingInput[1], @25, nil);
-    STAssertEqualObjects(sortedDescendingInput[2], @21, nil);
+- (void)testSortDescending {
+    NSArray *input = @[@21, @34, @25];
+
+    NSArray *sortedDescendingInput = [input linq_sortDescending];
+
+    XCTAssertEqual(sortedDescendingInput.count, (NSUInteger) 3);
+    XCTAssertEqualObjects(sortedDescendingInput[0], @34);
+    XCTAssertEqualObjects(sortedDescendingInput[1], @25);
+    XCTAssertEqualObjects(sortedDescendingInput[2], @21);
 }
 
-- (void)testSortDescendingWithKeySelector
-{
-    NSArray* input = [self createTestData];
-    
-    NSArray* sortedDescendingByName = [input linq_sortDescending:LINQKey(name)];
-    
-    STAssertEquals(sortedDescendingByName.count, (NSUInteger)5, nil);
-    STAssertEquals([sortedDescendingByName[0] name], @"joe", nil);
-    STAssertEquals([sortedDescendingByName[1] name], @"jim", nil);
-    STAssertEquals([sortedDescendingByName[2] name], @"ian", nil);
-    STAssertEquals([sortedDescendingByName[3] name], @"frank", nil);
-    STAssertEquals([sortedDescendingByName[4] name], @"bob", nil);
+- (void)testSortDescendingWithKeySelector {
+    NSArray *input = [self createTestData];
+
+    NSArray *sortedDescendingByName = [input linq_sortDescending:LINQKey(name)];
+
+    XCTAssertEqual(sortedDescendingByName.count, (NSUInteger) 5);
+    XCTAssertEqual([sortedDescendingByName[0] name], @"joe");
+    XCTAssertEqual([sortedDescendingByName[1] name], @"jim");
+    XCTAssertEqual([sortedDescendingByName[2] name], @"ian");
+    XCTAssertEqual([sortedDescendingByName[3] name], @"frank");
+    XCTAssertEqual([sortedDescendingByName[4] name], @"bob");
 }
 
-- (void)testSortDescendingWithKeySelectorWithNil
-{
-    NSArray* input = [self createTestData];
-    
-    NSArray* sortedDescendingByName = [input linq_sortDescending:^id(id person) {
+- (void)testSortDescendingWithKeySelectorWithNil {
+    NSArray *input = [self createTestData];
+
+    NSArray *sortedDescendingByName = [input linq_sortDescending:^id(id person) {
         return [[person name] isEqualToString:@"bob"] ? nil : [person name];
-        
+
     }];
-    
-    STAssertEquals(sortedDescendingByName.count, (NSUInteger)5, nil);
-    STAssertEquals([sortedDescendingByName[0] name], @"joe", nil);
-    STAssertEquals([sortedDescendingByName[1] name], @"jim", nil);
-    STAssertEquals([sortedDescendingByName[2] name], @"ian", nil);
-    STAssertEquals([sortedDescendingByName[3] name], @"frank", nil);
-    STAssertEquals([sortedDescendingByName[4] name], @"bob", nil);
+
+    XCTAssertEqual(sortedDescendingByName.count, (NSUInteger) 5);
+    XCTAssertEqual([sortedDescendingByName[0] name], @"joe");
+    XCTAssertEqual([sortedDescendingByName[1] name], @"jim");
+    XCTAssertEqual([sortedDescendingByName[2] name], @"ian");
+    XCTAssertEqual([sortedDescendingByName[3] name], @"frank");
+    XCTAssertEqual([sortedDescendingByName[4] name], @"bob");
 }
 
-- (void)testOfType
-{
-    NSArray* mixed = @[@"foo", @25, @"bar", @33];
-    
-    NSArray* strings = [mixed linq_ofType:[NSString class]];
-    
-    STAssertEquals(strings.count, (NSUInteger)2, nil);
-    STAssertEqualObjects(strings[0], @"foo", nil);
-    STAssertEqualObjects(strings[1], @"bar", nil);
+- (void)testOfType {
+    NSArray *mixed = @[@"foo", @25, @"bar", @33];
+
+    NSArray *strings = [mixed linq_ofType:[NSString class]];
+
+    XCTAssertEqual(strings.count, (NSUInteger) 2);
+    XCTAssertEqualObjects(strings[0], @"foo");
+    XCTAssertEqualObjects(strings[1], @"bar");
 }
 
-- (void)testSelectMany
-{
-    NSArray* data = @[@"foo, bar", @"fubar"];
-    
-    NSArray* components = [data linq_selectMany:^id(id string) {
+- (void)testSelectMany {
+    NSArray *data = @[@"foo, bar", @"fubar"];
+
+    NSArray *components = [data linq_selectMany:^id(id string) {
         return [string componentsSeparatedByString:@", "];
     }];
-    
-    STAssertEquals(components.count, (NSUInteger)3, nil);
-    STAssertEqualObjects(components[0], @"foo", nil);
-    STAssertEqualObjects(components[1], @"bar", nil);
-    STAssertEqualObjects(components[2], @"fubar", nil);
+
+    XCTAssertEqual(components.count, (NSUInteger) 3);
+    XCTAssertEqualObjects(components[0], @"foo");
+    XCTAssertEqualObjects(components[1], @"bar");
+    XCTAssertEqualObjects(components[2], @"fubar");
 }
 
-- (void)testDistinctWithKeySelector
-{
-    NSArray* input = [self createTestData];
-    
-    NSArray* peopelWithUniqueAges = [input linq_distinct:LINQKey(age)];
-    
-    STAssertEquals(peopelWithUniqueAges.count, (NSUInteger)4, nil);
-    STAssertEquals([peopelWithUniqueAges[0] name], @"bob", nil);
-    STAssertEquals([peopelWithUniqueAges[1] name], @"frank", nil);
-    STAssertEquals([peopelWithUniqueAges[2] name], @"ian", nil);
-    STAssertEquals([peopelWithUniqueAges[3] name], @"joe", nil);
+- (void)testDistinctWithKeySelector {
+    NSArray *input = [self createTestData];
+
+    NSArray *peopelWithUniqueAges = [input linq_distinct:LINQKey(age)];
+
+    XCTAssertEqual(peopelWithUniqueAges.count, (NSUInteger) 4);
+    XCTAssertEqual([peopelWithUniqueAges[0] name], @"bob");
+    XCTAssertEqual([peopelWithUniqueAges[1] name], @"frank");
+    XCTAssertEqual([peopelWithUniqueAges[2] name], @"ian");
+    XCTAssertEqual([peopelWithUniqueAges[3] name], @"joe");
 }
 
-- (void)testDistinctWithKeySelectorWithNil
-{
-    NSArray* input = [self createTestData];
-    
-    NSArray* peopelWithUniqueAges = [input linq_distinct:^id(id person) {
+- (void)testDistinctWithKeySelectorWithNil {
+    NSArray *input = [self createTestData];
+
+    NSArray *peopelWithUniqueAges = [input linq_distinct:^id(id person) {
         return [[person age] isEqualToNumber:@25] ? nil : [person age];
     }];
-    
-    STAssertEquals(peopelWithUniqueAges.count, (NSUInteger)4, nil);
-    STAssertEquals([peopelWithUniqueAges[0] name], @"bob", nil);
-    STAssertEquals([peopelWithUniqueAges[1] name], @"frank", nil);
-    STAssertEquals([peopelWithUniqueAges[2] name], @"ian", nil);
-    STAssertEquals([peopelWithUniqueAges[3] name], @"joe", nil);
+
+    XCTAssertEqual(peopelWithUniqueAges.count, (NSUInteger) 4);
+    XCTAssertEqual([peopelWithUniqueAges[0] name], @"bob");
+    XCTAssertEqual([peopelWithUniqueAges[1] name], @"frank");
+    XCTAssertEqual([peopelWithUniqueAges[2] name], @"ian");
+    XCTAssertEqual([peopelWithUniqueAges[3] name], @"joe");
 }
 
-- (void)testDistinct
-{
-    NSArray* names = @[@"bill", @"bob", @"bob", @"brian", @"bob"];
-    
-    NSArray* distinctNames = [names linq_distinct];
-    
-    STAssertEquals(distinctNames.count, (NSUInteger)3, nil);
-    STAssertEqualObjects(distinctNames[0], @"bill", nil);
-    STAssertEqualObjects(distinctNames[1], @"bob", nil);
-    STAssertEqualObjects(distinctNames[2], @"brian", nil);
+- (void)testDistinct {
+    NSArray *names = @[@"bill", @"bob", @"bob", @"brian", @"bob"];
+
+    NSArray *distinctNames = [names linq_distinct];
+
+    XCTAssertEqual(distinctNames.count, (NSUInteger) 3);
+    XCTAssertEqualObjects(distinctNames[0], @"bill");
+    XCTAssertEqualObjects(distinctNames[1], @"bob");
+    XCTAssertEqualObjects(distinctNames[2], @"brian");
 }
 
 
-- (void)testAggregate
-{
-    NSArray* names = @[@"bill", @"bob", @"brian"];
-    
+- (void)testAggregate {
+    NSArray *names = @[@"bill", @"bob", @"brian"];
+
     id csv = [names linq_aggregate:^id(id item, id aggregate) {
         return [NSString stringWithFormat:@"%@, %@", aggregate, item];
     }];
-    
-    STAssertEqualObjects(csv, @"bill, bob, brian", nil);
-    
-    NSArray* numbers = @[@22, @45, @33];
-    
+
+    XCTAssertEqualObjects(csv, @"bill, bob, brian");
+
+    NSArray *numbers = @[@22, @45, @33];
+
     id biggestNumber = [numbers linq_aggregate:^id(id item, id aggregate) {
         return [item compare:aggregate] == NSOrderedDescending ? item : aggregate;
     }];
-    
-    STAssertEqualObjects(biggestNumber, @45, nil);
+
+    XCTAssertEqualObjects(biggestNumber, @45);
 }
 
-- (void)testFirstOrNil
-{
-    NSArray* input = [self createTestData];
-    NSArray* emptyArray = @[];
-    
-    STAssertNil([emptyArray linq_firstOrNil], nil);
-    STAssertEquals([[input linq_firstOrNil] name], @"bob", nil);
+- (void)testFirstOrNil {
+    NSArray *input = [self createTestData];
+    NSArray *emptyArray = @[];
+
+    XCTAssertNil([emptyArray linq_firstOrNil]);
+    XCTAssertEqual([[input linq_firstOrNil] name], @"bob");
 }
 
-- (void)testFirtOrNilWithPredicate
-{
-    Person* jimSecond = [Person personWithName:@"jim" age:@22];
-    NSMutableArray* input = [NSMutableArray arrayWithArray:[self createTestData]];
+- (void)testFirtOrNilWithPredicate {
+    Person *jimSecond = [Person personWithName:@"jim" age:@22];
+    NSMutableArray *input = [NSMutableArray arrayWithArray:[self createTestData]];
     [input addObject:jimSecond];
-    
-    id personJim = [input linq_firstOrNil:^BOOL(Person* person) {
+
+    id personJim = [input linq_firstOrNil:^BOOL(Person *person) {
         return [person.name isEqualToString:@"jim"] && [person.age isEqualToNumber:@22];
     }];
-    
-    id personSteve = [input linq_firstOrNil:^BOOL(Person* person) {
+
+    id personSteve = [input linq_firstOrNil:^BOOL(Person *person) {
         return [person.name isEqualToString:@"steve"];
     }];
-    
-    STAssertEquals(personJim, jimSecond, @"Returned the wrong Jim!");
-    STAssertNil(personSteve, @"Should not have found Steve!");
-    STAssertTrue([personJim isKindOfClass:Person.class], @"Should have returned a single object of type Person");
+
+    XCTAssertEqual(personJim, jimSecond, @"Returned the wrong Jim!");
+    XCTAssertNil(personSteve, @"Should not have found Steve!");
+    XCTAssertTrue([personJim isKindOfClass:Person.class], @"Should have returned a single object of type Person");
 }
 
-- (void)testLastOrNil
-{
-    NSArray* input = [self createTestData];
-    NSArray* emptyArray = @[];
-    
-    STAssertNil([emptyArray linq_lastOrNil], nil);
-    STAssertEquals([[input linq_lastOrNil] name], @"joe", nil);
+- (void)testLastOrNil {
+    NSArray *input = [self createTestData];
+    NSArray *emptyArray = @[];
+
+    XCTAssertNil([emptyArray linq_lastOrNil]);
+    XCTAssertEqual([[input linq_lastOrNil] name], @"joe");
 }
 
-- (void)testTake
-{
-    NSArray* input = [self createTestData];
-    
-    STAssertEquals([input linq_take:0].count, (NSUInteger)0, nil);
-    STAssertEquals([input linq_take:5].count, (NSUInteger)5, nil);
-    STAssertEquals([input linq_take:50].count, (NSUInteger)5, nil);
-    STAssertEquals([[input linq_take:2][0] name], @"bob", nil);
+- (void)testTake {
+    NSArray *input = [self createTestData];
+
+    XCTAssertEqual([input linq_take:0].count, (NSUInteger) 0);
+    XCTAssertEqual([input linq_take:5].count, (NSUInteger) 5);
+    XCTAssertEqual([input linq_take:50].count, (NSUInteger) 5);
+    XCTAssertEqual([[input linq_take:2][0] name], @"bob");
 }
 
-- (void)testSkip
-{
-    NSArray* input = [self createTestData];
-    
-    STAssertEquals([input linq_skip:0].count, (NSUInteger)5, nil);
-    STAssertEquals([input linq_skip:5].count, (NSUInteger)0, nil);
-    STAssertEquals([[input linq_skip:2][0] name], @"ian", nil);
+- (void)testSkip {
+    NSArray *input = [self createTestData];
+
+    XCTAssertEqual([input linq_skip:0].count, (NSUInteger) 5);
+    XCTAssertEqual([input linq_skip:5].count, (NSUInteger) 0);
+    XCTAssertEqual([[input linq_skip:2][0] name], @"ian");
 }
 
 
-- (void)testAny
-{
-    NSArray* input = @[@25, @44, @36];
-    
-    STAssertFalse([input linq_any:^BOOL(id item) {
+- (void)testAny {
+    NSArray *input = @[@25, @44, @36];
+
+    XCTAssertFalse([input linq_any:^BOOL(id item) {
         return [item isEqualToNumber:@33];
-    }], nil);
-    
-    STAssertTrue([input linq_any:^BOOL(id item) {
+    }]);
+
+    XCTAssertTrue([input linq_any:^BOOL(id item) {
         return [item isEqualToNumber:@25];
-    }], nil);
+    }]);
 }
 
-- (void)testAll
-{
-    NSArray* input = @[@25, @25, @25];
-    
-    STAssertFalse([input linq_all:^BOOL(id item) {
+- (void)testAll {
+    NSArray *input = @[@25, @25, @25];
+
+    XCTAssertFalse([input linq_all:^BOOL(id item) {
         return [item isEqualToNumber:@33];
-    }], nil);
-    
-    STAssertTrue([input linq_all:^BOOL(id item) {
+    }]);
+
+    XCTAssertTrue([input linq_all:^BOOL(id item) {
         return [item isEqualToNumber:@25];
-    }], nil);
+    }]);
 }
 
-- (void)testGroupBy
-{
-    NSArray* input = @[@"James", @"Jim", @"Bob"];
-    
-    NSDictionary* groupedByFirstLetter = [input linq_groupBy:^id(id name) {
+- (void)testGroupBy {
+    NSArray *input = @[@"James", @"Jim", @"Bob"];
+
+    NSDictionary *groupedByFirstLetter = [input linq_groupBy:^id(id name) {
         return [name substringToIndex:1];
     }];
-    
-    STAssertEquals(groupedByFirstLetter.count, (NSUInteger)2, nil);
-    
+
+    XCTAssertEqual(groupedByFirstLetter.count, (NSUInteger) 2);
+
     // test the group keys
-    NSArray* keys = [groupedByFirstLetter allKeys];
-    STAssertEqualObjects(@"J", keys[0], nil);
-    STAssertEqualObjects(@"B", keys[1], nil);
-    
+    NSArray *keys = [groupedByFirstLetter allKeys];
+    XCTAssertEqualObjects(@"J", keys[0]);
+    XCTAssertEqualObjects(@"B", keys[1]);
+
     // test that the correct items are in each group
-    NSArray* groupOne = groupedByFirstLetter[@"J"];
-    STAssertEquals(groupOne.count, (NSUInteger)2, nil);
-    STAssertEqualObjects(@"James", groupOne[0], nil);
-    STAssertEqualObjects(@"Jim", groupOne[1], nil);
-    
-    NSArray* groupTwo = groupedByFirstLetter[@"B"];
-    STAssertEquals(groupTwo.count, (NSUInteger)1, nil);
-    STAssertEqualObjects(@"Bob", groupTwo[0], nil);
+    NSArray *groupOne = groupedByFirstLetter[@"J"];
+    XCTAssertEqual(groupOne.count, (NSUInteger) 2);
+    XCTAssertEqualObjects(@"James", groupOne[0]);
+    XCTAssertEqualObjects(@"Jim", groupOne[1]);
+
+    NSArray *groupTwo = groupedByFirstLetter[@"B"];
+    XCTAssertEqual(groupTwo.count, (NSUInteger) 1);
+    XCTAssertEqualObjects(@"Bob", groupTwo[0]);
 }
 
-- (void)testGroupByWithNil
-{
-    NSArray* input = @[@"James", @"Jim", @"Bob"];
-    
-    NSDictionary* groupedByFirstLetter = [input linq_groupBy:^id(id name) {
-        NSString* firstChar = [name substringToIndex:1];
+- (void)testGroupByWithNil {
+    NSArray *input = @[@"James", @"Jim", @"Bob"];
+
+    NSDictionary *groupedByFirstLetter = [input linq_groupBy:^id(id name) {
+        NSString *firstChar = [name substringToIndex:1];
         return [firstChar isEqualToString:@"J"] ? nil : firstChar;
     }];
-    
-    STAssertEquals(groupedByFirstLetter.count, (NSUInteger)2, nil);
-    
+
+    XCTAssertEqual(groupedByFirstLetter.count, (NSUInteger) 2);
+
     // test the group keys
-    NSArray* keys = [groupedByFirstLetter allKeys];
-    STAssertEqualObjects([NSNull null], keys[1], nil);
-    STAssertEqualObjects(@"B", keys[0], nil);
-    
+    NSArray *keys = [groupedByFirstLetter allKeys];
+    XCTAssertEqualObjects([NSNull null], keys[1]);
+    XCTAssertEqualObjects(@"B", keys[0]);
+
     // test that the correct items are in each group
-    NSArray* groupOne = groupedByFirstLetter[[NSNull null]];
-    STAssertEquals(groupOne.count, (NSUInteger)2, nil);
-    STAssertEqualObjects(@"James", groupOne[0], nil);
-    STAssertEqualObjects(@"Jim", groupOne[1], nil);
-    
-    NSArray* groupTwo = groupedByFirstLetter[@"B"];
-    STAssertEquals(groupTwo.count, (NSUInteger)1, nil);
-    STAssertEqualObjects(@"Bob", groupTwo[0], nil);
+    NSArray *groupOne = groupedByFirstLetter[[NSNull null]];
+    XCTAssertEqual(groupOne.count, (NSUInteger) 2);
+    XCTAssertEqualObjects(@"James", groupOne[0]);
+    XCTAssertEqualObjects(@"Jim", groupOne[1]);
+
+    NSArray *groupTwo = groupedByFirstLetter[@"B"];
+    XCTAssertEqual(groupTwo.count, (NSUInteger) 1);
+    XCTAssertEqualObjects(@"Bob", groupTwo[0]);
 }
 
-- (void)testToDictionaryWithValueSelector
-{
-    NSArray* input = @[@"James", @"Jim", @"Bob"];
+- (void)testToDictionaryWithValueSelector {
+    NSArray *input = @[@"James", @"Jim", @"Bob"];
 
-    NSDictionary* dictionary = [input linq_toDictionaryWithKeySelector:^id(id item) {
+    NSDictionary *dictionary = [input linq_toDictionaryWithKeySelector:^id(id item) {
         return [item substringToIndex:1];
-    } valueSelector:^id(id item) {
+    }                                                    valueSelector:^id(id item) {
         return [item lowercaseString];
     }];
-    
+
     NSLog(@"%@", dictionary);
-    
+
     // NOTE - two items have the same key, hence the dictionary only has 2 keys
-    STAssertEquals(dictionary.count, (NSUInteger)2, nil);
-    
+    XCTAssertEqual(dictionary.count, (NSUInteger) 2);
+
     // test the group keys
-    NSArray* keys = [dictionary allKeys];
-    STAssertEqualObjects(@"J", keys[0], nil);
-    STAssertEqualObjects(@"B", keys[1], nil);
-    
+    NSArray *keys = [dictionary allKeys];
+    XCTAssertEqualObjects(@"J", keys[0]);
+    XCTAssertEqualObjects(@"B", keys[1]);
+
     // test the values
-    STAssertEqualObjects(dictionary[@"J"], @"jim", nil);
-    STAssertEqualObjects(dictionary[@"B"], @"bob", nil);
+    XCTAssertEqualObjects(dictionary[@"J"], @"jim");
+    XCTAssertEqualObjects(dictionary[@"B"], @"bob");
 }
 
-- (void)testToDictionaryWithValueSelectorWithNil
-{
-    NSArray* input = @[@"James", @"Jim", @"Bob"];
-    
-    NSDictionary* dictionary = [input linq_toDictionaryWithKeySelector:^id(id item) {
-        NSString* firstChar = [item substringToIndex:1];
+- (void)testToDictionaryWithValueSelectorWithNil {
+    NSArray *input = @[@"James", @"Jim", @"Bob"];
+
+    NSDictionary *dictionary = [input linq_toDictionaryWithKeySelector:^id(id item) {
+        NSString *firstChar = [item substringToIndex:1];
         return [firstChar isEqualToString:@"J"] ? nil : firstChar;
-    } valueSelector:^id(id item) {
-        NSString* lowercaseName = [item lowercaseString];
+    }                                                    valueSelector:^id(id item) {
+        NSString *lowercaseName = [item lowercaseString];
         return [lowercaseName isEqualToString:@"bob"] ? nil : lowercaseName;
     }];
-    
+
     NSLog(@"%@", dictionary);
-    
+
     // NOTE - two items have the same key, hence the dictionary only has 2 keys
-    STAssertEquals(dictionary.count, (NSUInteger)2, nil);
-    
+    XCTAssertEqual(dictionary.count, (NSUInteger) 2);
+
     // test the group keys
-    NSArray* keys = [dictionary allKeys];
-    STAssertEqualObjects([NSNull null], keys[1], nil);
-    STAssertEqualObjects(@"B", keys[0], nil);
-    
+    NSArray *keys = [dictionary allKeys];
+    XCTAssertEqualObjects([NSNull null], keys[1]);
+    XCTAssertEqualObjects(@"B", keys[0]);
+
     // test the values
-    STAssertEqualObjects(dictionary[[NSNull null]], @"jim", nil);
-    STAssertEqualObjects(dictionary[@"B"], [NSNull null], nil);
+    XCTAssertEqualObjects(dictionary[[NSNull null]], @"jim");
+    XCTAssertEqualObjects(dictionary[@"B"], [NSNull null]);
 }
 
-- (void)testToDictionary
-{
-    NSArray* input = @[@"Jim", @"Bob"];
-    
-    NSDictionary* dictionary = [input linq_toDictionaryWithKeySelector:^id(id item) {
+- (void)testToDictionary {
+    NSArray *input = @[@"Jim", @"Bob"];
+
+    NSDictionary *dictionary = [input linq_toDictionaryWithKeySelector:^id(id item) {
         return [item substringToIndex:1];
     }];
-    
-    STAssertEquals(dictionary.count, (NSUInteger)2, nil);
-    
+
+    XCTAssertEqual(dictionary.count, (NSUInteger) 2);
+
     // test the group keys
-    NSArray* keys = [dictionary allKeys];
-    STAssertEqualObjects(@"J", keys[0], nil);
-    STAssertEqualObjects(@"B", keys[1], nil);
-    
+    NSArray *keys = [dictionary allKeys];
+    XCTAssertEqualObjects(@"J", keys[0]);
+    XCTAssertEqualObjects(@"B", keys[1]);
+
     // test the values
-    STAssertEqualObjects(dictionary[@"J"], @"Jim", nil);
-    STAssertEqualObjects(dictionary[@"B"], @"Bob", nil);
+    XCTAssertEqualObjects(dictionary[@"J"], @"Jim");
+    XCTAssertEqualObjects(dictionary[@"B"], @"Bob");
 }
 
 
-
-- (void) testCount
-{
-    NSArray* input = @[@25, @35, @25];
+- (void)testCount {
+    NSArray *input = @[@25, @35, @25];
 
     NSUInteger numbersEqualTo25 = [input linq_count:^BOOL(id item) {
         return [item isEqualToNumber:@25];
     }];
 
-    STAssertEquals(numbersEqualTo25, (NSUInteger)2, nil);
+    XCTAssertEqual(numbersEqualTo25, (NSUInteger) 2);
 }
 
-- (void) testConcat
-{
-    NSArray* input = @[@25, @35];
-    
-    NSArray* result = [input linq_concat:@[@45, @55]];
-    
-    STAssertEquals(result.count, (NSUInteger)4, nil);
-    STAssertEqualObjects(result[0], @25, nil);
-    STAssertEqualObjects(result[1], @35, nil);
-    STAssertEqualObjects(result[2], @45, nil);
-    STAssertEqualObjects(result[3], @55, nil);
+- (void)testConcat {
+    NSArray *input = @[@25, @35];
+
+    NSArray *result = [input linq_concat:@[@45, @55]];
+
+    XCTAssertEqual(result.count, (NSUInteger) 4);
+    XCTAssertEqualObjects(result[0], @25);
+    XCTAssertEqualObjects(result[1], @35);
+    XCTAssertEqualObjects(result[2], @45);
+    XCTAssertEqualObjects(result[3], @55);
 }
 
-- (void) testReverse
-{
-    NSArray* input = @[@25, @35];
-    
-    NSArray* result = [input linq_reverse];
-    
-    STAssertEquals(result.count, (NSUInteger)2, nil);
-    STAssertEqualObjects(result[0], @35, nil);
-    STAssertEqualObjects(result[1], @25, nil);
+- (void)testReverse {
+    NSArray *input = @[@25, @35];
+
+    NSArray *result = [input linq_reverse];
+
+    XCTAssertEqual(result.count, (NSUInteger) 2);
+    XCTAssertEqualObjects(result[0], @35);
+    XCTAssertEqualObjects(result[1], @25);
 }
 
-- (void) testSum
-{
-    NSArray* input = @[@25, @35];
-    
-    NSNumber* sum = [input linq_sum];
-    STAssertEqualObjects(sum, @60, nil);
+- (void)testSum {
+    NSArray *input = @[@25, @35];
+
+    NSNumber *sum = [input linq_sum];
+    XCTAssertEqualObjects(sum, @60);
 }
 
 @end

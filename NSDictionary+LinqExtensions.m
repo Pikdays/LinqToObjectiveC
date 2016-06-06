@@ -10,33 +10,66 @@
 
 @implementation NSDictionary (QueryExtension)
 
-- (NSDictionary *)linq_where:(LINQKeyValueCondition)predicate
-{
-    NSMutableDictionary* result = [[NSMutableDictionary alloc] init];
+#pragma mark - ⊂((・猿・))⊃ 查
+#pragma mark - where
+
+- (NSDictionary *)linq_where:(LINQKeyValueCondition)predicate {
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (predicate(key, obj)) {
-            [result setObject:obj forKey:key];
+            result[key] = obj;
         }
     }];
     return result;
 }
 
-- (NSDictionary *)linq_select:(LINQKeyValueSelector)selector
-{
-    NSMutableDictionary* result = [[NSMutableDictionary alloc] init];
+- (NSUInteger)linq_count:(LINQKeyValueCondition)condition {
+    return [self linq_where:condition].count;
+}
+
+#pragma mark -
+
+- (BOOL)linq_all:(LINQKeyValueCondition)condition {
+    __block BOOL all = TRUE;
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if (!condition(key, obj)) {
+            all = FALSE;
+            *stop = TRUE;
+        }
+    }];
+    return all;
+}
+
+- (BOOL)linq_any:(LINQKeyValueCondition)condition {
+    __block BOOL any = FALSE;
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if (condition(key, obj)) {
+            any = TRUE;
+            *stop = TRUE;
+        }
+    }];
+    return any;
+}
+
+#pragma mark - ⊂((・猿・))⊃ 改
+#pragma mark - select
+
+- (NSDictionary *)linq_select:(LINQKeyValueSelector)selector {
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         id object = selector(key, obj);
         if (!object)
             object = [NSNull null];
-        
-        [result setObject:object forKey:key];
+
+        result[key] = object;
     }];
     return result;
 }
 
-- (NSArray *)linq_toArray:(LINQKeyValueSelector)selector
-{
-    NSMutableArray* result = [[NSMutableArray alloc] init];
+#pragma mark - toArray（转换成数组）
+
+- (NSArray *)linq_toArray:(LINQKeyValueSelector)selector {
+    NSMutableArray *result = [[NSMutableArray alloc] init];
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         id object = selector(key, obj);
         if (!object)
@@ -46,41 +79,13 @@
     return result;
 }
 
-- (BOOL)linq_all:(LINQKeyValueCondition)condition
-{
-    __block BOOL all = TRUE;
-    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if (!condition(key, obj)){
-            all = FALSE;
-            *stop = TRUE;
-        }
-    }];
-    return all;
-}
+#pragma mark - Merge(合并)
 
-- (BOOL)linq_any:(LINQKeyValueCondition)condition
-{
-    __block BOOL any = FALSE;
-    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if (condition(key, obj)){
-            any = TRUE;
-            *stop = TRUE;
-        }
-    }];
-    return any;
-}
-
-- (NSUInteger)linq_count:(LINQKeyValueCondition)condition
-{
-    return [self linq_where:condition].count;
-}
-
-- (NSDictionary *)linq_Merge:(NSDictionary *)dictionary
-{
-    NSMutableDictionary* result = [[NSMutableDictionary alloc] initWithDictionary:self];
+- (NSDictionary *)linq_Merge:(NSDictionary *)dictionary {
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] initWithDictionary:self];
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if (![result objectForKey:key]) {
-            [result setObject:obj forKey:key];
+        if (!result[key]) {
+            result[key] = obj;
         }
     }];
     return result;

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5008D5A11D0534D1003DEDE9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5008D5A01D0534D1003DEDE9 /* Default-568h@2x.png */; };
+		5C3495D113135DD98632D4D9 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C349D45D56FD11FBC72292A /* NSDictionary+LinqExtensions.m */; };
+		5C3495F6AEE2AF9791AD2AF9 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C349E32F15A3D454F7644BB /* NSArray+LinqExtensions.m */; };
 		72B9B6761848EA6C0039064C /* MacroTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B9B6751848EA6C0039064C /* MacroTest.m */; };
 		72EC7E0E17DC4DA0009AA360 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72EC7E0D17DC4DA0009AA360 /* UIKit.framework */; };
 		72EC7E1017DC4DA0009AA360 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72EC7E0F17DC4DA0009AA360 /* Foundation.framework */; };
@@ -14,12 +17,9 @@
 		72EC7E1817DC4DA0009AA360 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 72EC7E1617DC4DA0009AA360 /* InfoPlist.strings */; };
 		72EC7E1A17DC4DA0009AA360 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EC7E1917DC4DA0009AA360 /* main.m */; };
 		72EC7E1E17DC4DA0009AA360 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EC7E1D17DC4DA0009AA360 /* AppDelegate.m */; };
-		72EC7E2C17DC4DA0009AA360 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72EC7E2B17DC4DA0009AA360 /* SenTestingKit.framework */; };
 		72EC7E2D17DC4DA0009AA360 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72EC7E0D17DC4DA0009AA360 /* UIKit.framework */; };
 		72EC7E2E17DC4DA0009AA360 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72EC7E0F17DC4DA0009AA360 /* Foundation.framework */; };
 		72EC7E3617DC4DA0009AA360 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 72EC7E3417DC4DA0009AA360 /* InfoPlist.strings */; };
-		72EC7E4617DC4DCB009AA360 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EC7E4417DC4DCB009AA360 /* NSArray+LinqExtensions.m */; };
-		72EC7E4717DC4DCB009AA360 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EC7E4517DC4DCB009AA360 /* NSDictionary+LinqExtensions.m */; };
 		72EC7E6B17DC505D009AA360 /* NSArrayLinqExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EC7E6717DC505D009AA360 /* NSArrayLinqExtensionsTest.m */; };
 		72EC7E6C17DC505D009AA360 /* NSDictionaryLinqExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EC7E6817DC505D009AA360 /* NSDictionaryLinqExtensionsTest.m */; };
 		72EC7E6D17DC505D009AA360 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EC7E6917DC505D009AA360 /* Person.m */; };
@@ -37,6 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5008D5A01D0534D1003DEDE9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		5C3491DF96E844EB0BF1727E /* NSArray+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+LinqExtensions.h"; path = "../../NSArray+LinqExtensions.h"; sourceTree = "<group>"; };
+		5C3496980F3FD26DCF693580 /* NSDictionary+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+LinqExtensions.h"; path = "../../NSDictionary+LinqExtensions.h"; sourceTree = "<group>"; };
+		5C349D45D56FD11FBC72292A /* NSDictionary+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+LinqExtensions.m"; path = "../../NSDictionary+LinqExtensions.m"; sourceTree = "<group>"; };
+		5C349E32F15A3D454F7644BB /* NSArray+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+LinqExtensions.m"; path = "../../NSArray+LinqExtensions.m"; sourceTree = "<group>"; };
 		72B9B6741848EA6C0039064C /* MacroTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacroTest.h; sourceTree = "<group>"; };
 		72B9B6751848EA6C0039064C /* MacroTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacroTest.m; sourceTree = "<group>"; };
 		72EC7E0917DC4DA0009AA360 /* LinqToObjectiveCTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinqToObjectiveCTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,14 +54,9 @@
 		72EC7E1B17DC4DA0009AA360 /* LinqToObjectiveCTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LinqToObjectiveCTest-Prefix.pch"; sourceTree = "<group>"; };
 		72EC7E1C17DC4DA0009AA360 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		72EC7E1D17DC4DA0009AA360 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		72EC7E2A17DC4DA0009AA360 /* LinqToObjectiveCTestTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinqToObjectiveCTestTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		72EC7E2B17DC4DA0009AA360 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		72EC7E2A17DC4DA0009AA360 /* LinqToObjectiveCTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinqToObjectiveCTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		72EC7E3317DC4DA0009AA360 /* LinqToObjectiveCTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LinqToObjectiveCTestTests-Info.plist"; sourceTree = "<group>"; };
 		72EC7E3517DC4DA0009AA360 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		72EC7E4217DC4DCB009AA360 /* NSArray+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+LinqExtensions.h"; path = "../../NSArray+LinqExtensions.h"; sourceTree = "<group>"; };
-		72EC7E4317DC4DCB009AA360 /* NSDictionary+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+LinqExtensions.h"; path = "../../NSDictionary+LinqExtensions.h"; sourceTree = "<group>"; };
-		72EC7E4417DC4DCB009AA360 /* NSArray+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+LinqExtensions.m"; path = "../../NSArray+LinqExtensions.m"; sourceTree = "<group>"; };
-		72EC7E4517DC4DCB009AA360 /* NSDictionary+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+LinqExtensions.m"; path = "../../NSDictionary+LinqExtensions.m"; sourceTree = "<group>"; };
 		72EC7E6317DC505D009AA360 /* NSArrayLinqExtensionsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSArrayLinqExtensionsTest.h; sourceTree = "<group>"; };
 		72EC7E6417DC505D009AA360 /* NSDictionaryLinqExtensionsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionaryLinqExtensionsTest.h; sourceTree = "<group>"; };
 		72EC7E6517DC505D009AA360 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
@@ -82,7 +82,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72EC7E2C17DC4DA0009AA360 /* SenTestingKit.framework in Frameworks */,
 				72EC7E2D17DC4DA0009AA360 /* UIKit.framework in Frameworks */,
 				72EC7E2E17DC4DA0009AA360 /* Foundation.framework in Frameworks */,
 			);
@@ -91,9 +90,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C34963D488428087F417C07 /* LinqToObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				5C3496980F3FD26DCF693580 /* NSDictionary+LinqExtensions.h */,
+				5C349E32F15A3D454F7644BB /* NSArray+LinqExtensions.m */,
+				5C349D45D56FD11FBC72292A /* NSDictionary+LinqExtensions.m */,
+				5C3491DF96E844EB0BF1727E /* NSArray+LinqExtensions.h */,
+			);
+			name = LinqToObjectiveC;
+			sourceTree = "<group>";
+		};
 		72EC7DFE17DC4DA0009AA360 = {
 			isa = PBXGroup;
 			children = (
+				5008D5A01D0534D1003DEDE9 /* Default-568h@2x.png */,
 				72EC7E1317DC4DA0009AA360 /* LinqToObjectiveCTest */,
 				72EC7E3117DC4DA0009AA360 /* LinqToObjectiveCTestTests */,
 				72EC7E0C17DC4DA0009AA360 /* Frameworks */,
@@ -105,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				72EC7E0917DC4DA0009AA360 /* LinqToObjectiveCTest.app */,
-				72EC7E2A17DC4DA0009AA360 /* LinqToObjectiveCTestTests.octest */,
+				72EC7E2A17DC4DA0009AA360 /* LinqToObjectiveCTestTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,7 +127,6 @@
 				72EC7E0D17DC4DA0009AA360 /* UIKit.framework */,
 				72EC7E0F17DC4DA0009AA360 /* Foundation.framework */,
 				72EC7E1117DC4DA0009AA360 /* CoreGraphics.framework */,
-				72EC7E2B17DC4DA0009AA360 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -155,11 +165,8 @@
 				72EC7E6917DC505D009AA360 /* Person.m */,
 				72EC7E6617DC505D009AA360 /* ScenarioTests.h */,
 				72EC7E6A17DC505D009AA360 /* ScenarioTests.m */,
-				72EC7E4217DC4DCB009AA360 /* NSArray+LinqExtensions.h */,
-				72EC7E4417DC4DCB009AA360 /* NSArray+LinqExtensions.m */,
-				72EC7E4317DC4DCB009AA360 /* NSDictionary+LinqExtensions.h */,
-				72EC7E4517DC4DCB009AA360 /* NSDictionary+LinqExtensions.m */,
 				72EC7E3217DC4DA0009AA360 /* Supporting Files */,
+				5C34963D488428087F417C07 /* LinqToObjectiveC */,
 			);
 			path = LinqToObjectiveCTestTests;
 			sourceTree = "<group>";
@@ -209,8 +216,8 @@
 			);
 			name = LinqToObjectiveCTestTests;
 			productName = LinqToObjectiveCTestTests;
-			productReference = 72EC7E2A17DC4DA0009AA360 /* LinqToObjectiveCTestTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productReference = 72EC7E2A17DC4DA0009AA360 /* LinqToObjectiveCTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -218,7 +225,8 @@
 		72EC7E0017DC4DA0009AA360 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastTestingUpgradeCheck = 0730;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Colin Eberhardt";
 			};
 			buildConfigurationList = 72EC7E0317DC4DA0009AA360 /* Build configuration list for PBXProject "LinqToObjectiveCTest" */;
@@ -245,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72EC7E1817DC4DA0009AA360 /* InfoPlist.strings in Resources */,
+				5008D5A11D0534D1003DEDE9 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,13 +297,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72EC7E4617DC4DCB009AA360 /* NSArray+LinqExtensions.m in Sources */,
-				72EC7E4717DC4DCB009AA360 /* NSDictionary+LinqExtensions.m in Sources */,
 				72EC7E6B17DC505D009AA360 /* NSArrayLinqExtensionsTest.m in Sources */,
 				72EC7E6C17DC505D009AA360 /* NSDictionaryLinqExtensionsTest.m in Sources */,
 				72EC7E6D17DC505D009AA360 /* Person.m in Sources */,
 				72EC7E6E17DC505D009AA360 /* ScenarioTests.m in Sources */,
 				72B9B6761848EA6C0039064C /* MacroTest.m in Sources */,
+				5C3495F6AEE2AF9791AD2AF9 /* NSArray+LinqExtensions.m in Sources */,
+				5C3495D113135DD98632D4D9 /* NSDictionary+LinqExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +348,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -351,6 +361,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -385,6 +396,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LinqToObjectiveCTest/LinqToObjectiveCTest-Prefix.pch";
 				INFOPLIST_FILE = "LinqToObjectiveCTest/LinqToObjectiveCTest-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "Eu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -396,6 +408,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LinqToObjectiveCTest/LinqToObjectiveCTest-Prefix.pch";
 				INFOPLIST_FILE = "LinqToObjectiveCTest/LinqToObjectiveCTest-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "Eu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -408,13 +421,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LinqToObjectiveCTest/LinqToObjectiveCTest-Prefix.pch";
 				INFOPLIST_FILE = "LinqToObjectiveCTestTests/LinqToObjectiveCTestTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.scottlogic.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -425,13 +439,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LinqToObjectiveCTest/LinqToObjectiveCTest-Prefix.pch";
 				INFOPLIST_FILE = "LinqToObjectiveCTestTests/LinqToObjectiveCTestTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.scottlogic.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

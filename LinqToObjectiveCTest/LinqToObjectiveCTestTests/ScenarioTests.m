@@ -32,7 +32,7 @@
                             return [NSString stringWithFormat:@"%@&%@", item, aggregate];
                         }];
     
-    STAssertEqualObjects(@"page=24&q=how+many+kittens&lang=en-US&key=1234", result, nil);
+    XCTAssertEqualObjects(@"page=24&q=how+many+kittens&lang=en-US&key=1234", result);
 }
 
 - (void)testCountingPeopleWithSurnamesStartingWithEachLetter
